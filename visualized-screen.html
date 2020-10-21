@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可视化大屏</title>
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./iconfont/iconfont.css">
+</head>
+
+<body>
+    <div id="screen">
+        <cpn1 :temperature="temperature" :P-m="PM" :condition="condition" :now-date="nowDate" :now-time="nowTime">
+        </cpn1>
+        <cpn2></cpn2>
+        <cpn3 class="cpn3-1" :color="color1">
+            <div class="cpn3-info">
+                <div>最大驻留时间</div>
+                <div>{{longTime}}</div>
+            </div>
+        </cpn3>
+        <cpn3 class="cpn3-2" :color="color2">
+            <div class="cpn3-info">
+                <div>最大驻留最长展厅</div>
+                <div>{{cp3Info}}</div>
+            </div>
+        </cpn3>
+        <cpn4 class="cpn4"></cpn4>
+        <cpn5 class="cpn5" :y-data="yData" :series-data="seriesData" :color-list="colorList"></cpn5>
+        <cpn6 :show-info="showInfo" :show-info6="showInfo6"></cpn6>
+        <cpn7 :show-info2="showInfo2"></cpn7>
+        <cpn8 :show-info3="showInfo3"></cpn8>
+        <cpn9 :show-info4="showInfo4"></cpn9>
+        <cpn10 :show-info5="showInfo5"></cpn10>
+    </div>
+    <template id="cpn1">
+        <div class="div-head">
+            <div class="logo"><img src="../shujukeshihua2/shujukeshihua/img/" alt=""></div>
+            <div class="head-img">
+                <img src="../shujukeshihua2/shujukeshihua/img/showtitle.png" alt="">
+            </div>
+            <div class="head-right">
+                <div class="weather">
+                    <img src="../shujukeshihua2/shujukeshihua/img/sun.png" alt="">
+                    <span>{{temperature}}℃</span>
+                </div>
+                <div class="pollution-index">
+                    <div class="icon"><i class="iconfont icon-shuyee"></i></div>
+                    <div class="info">
+                        <div class="index">{{PM}}</div>
+                        <div class="condition">{{condition}}</div>
+                    </div>
+                </div>
+                <div class="time">
+                    <div class="nowTime">{{nowTime}}</div>
+                    <div class="data">{{nowDate}}</div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="cpn2">
+        <div id="eCharts1" class="eCharts1"></div>
+    </template>
+    <template id="cpn3">
+        <div class="cpn3-ball">
+            <div class="spot" :style={backgroundColor:color}>
+                <slot name="ball"></slot>
+            </div>
+            <slot></slot>
+        </div>
+    </template>
+    <template id="cpn4">
+        <div class="cpn4-img"><img src="../shujukeshihua2/shujukeshihua/img/loufang.png" alt=""></div>
+    </template>
+    <template id="cpn5">
+        <div id="eChart2" class="eChart2"></div>
+    </template>
+    <template id="cpn6">
+        <div class="cpn6">
+            <div id="eChart3" class="eChart3"></div>
+        </div>
+    </template>
+    <template id="cpn7">
+        <div class="cpn7">
+            <div class="title">{{showInfo2.title}}</div>
+            <div class="content">
+                <div class="one-f">
+                    <cpn3 class="ball" :color="showInfo2.color[0]"></cpn3>
+                    <div class="text">一层当前装备<span :style="{color:showInfo2.color[0]}">{{showInfo2.install1}}</span>台
+                    </div>
+                </div>
+                <div class="two-f">
+                    <cpn3 class="ball" :color="showInfo2.color[1]"></cpn3>
+                    <div class="text">二层当前装备<span :style="{color:showInfo2.color[1]}">{{showInfo2.install2}}</span>台
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="one-f">
+                    <cpn3 class="ball" :color="showInfo2.color[2]"></cpn3>
+                    <div class="text">终端使用数<span :style="{color:showInfo2.color[2]}">{{showInfo2.using}}</span>台</div>
+                </div>
+                <div class="two-f">
+                    <cpn3 class="ball" :color="showInfo2.color[3]"></cpn3>
+                    <div class="text">运行状况<span :style="{color:showInfo2.color[3]}">{{showInfo2.run}}</span></div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="cpn8">
+        <div class="cpn8">
+            <div class="title">{{showInfo3.title}}</div>
+            <div class="content">
+                <div class="one-f">
+                    <cpn3 class="ball" :color="showInfo3.color[0]"></cpn3>
+                    <div class="text">正在使用<span :style="{color:showInfo3.color[0]}">{{showInfo3.using}}</span>台</div>
+                </div>
+                <div class="two-f">
+                    <cpn3 class="ball" :color="showInfo3.color[1]"></cpn3>
+                    <div class="text">待使用<span :style="{color:showInfo3.color[1]}">{{showInfo3.unUsing}}</span>台</div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="one-f">
+                    <cpn3 class="ball" :color="showInfo3.color[2]"></cpn3>
+                    <div class="text">设备总数<span :style="{color:showInfo3.color[2]}">{{showInfo3.total}}</span>台</div>
+                </div>
+                <div class="two-f">
+                    <cpn3 class="ball" :color="showInfo3.color[3]"></cpn3>
+                    <div class="text">损害数<span :style="{color:showInfo3.color[3]}">{{showInfo3.broken}}</span></div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="cpn9">
+        <div class="eChart4" id="eChart4"></div>
+    </template>
+    <template id="cpn10">
+        <div class="cpn10">
+            <div class="cpn10-title">热门展项TOP10</div>
+            <div class="cpn10-subtext">TOP1
+                <span>骑马文吏俑</span>
+            </div>
+            <div class="cpn10-center">
+                <cpn3 color='#E3391E'></cpn3>
+                <div class="cpn10-text">当前推荐度</div>
+                <div class="cpn10-img"><img src="../shujukeshihua2/shujukeshihua/img/star.png" alt="" v-for="item in 5">
+                </div>
+            </div>
+            <div class="cpn10-bottom">
+                <div class="cpn10-array" v-for="(item,index) in showInfo5" :key="index">
+                    <cpn3 class="cpn10-ball" :color="item.color">
+                        <div slot="ball">{{index + 1}}</div>
+                    </cpn3>
+                    <div class="cpn10-item">{{item.item}}</div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <script src="../../vue.js"></script>
+    <script src="./echarts.js"></script>
+    <script>
+        const cpn1 = {
+            template: "#cpn1",
+            props: {
+                temperature: Number,
+                PM: Number,
+                condition: String,
+                nowDate: String,
+                nowTime: String
+            }
+        }
+        const cpn2 = {
+            template: "#cpn2",
+            data() {
+                return {
+                    eCharts: null,
+                }
+            },
+            props: {
+
+            },
+            mounted() {
+                this.initChart();
+            },
+            methods: {
+                initChart() {
+                    // 基于准备好的dom，初始化echarts实例 
+                    let myChart = echarts.init(document.getElementById("eCharts1"));
+                    // 绘制图表 
+                    myChart.setOption({
+                        title: {
+                            text: '实施客流统计',
+                            textStyle: {
+                                color: "#fff",
+                                fontWeight: 500,
+                                fontSize: 24
+                            }
+                        },
+                        graphic: {       //图形中间文字
+                            type: "text",
+                            left: "center",
+                            top: "center",
+                            style: {
+                                text: "166\n最大进入人数",
+                                textAlign: "center",
+                                fill: "#fff",
+                                fontSize: 15
+                            }
+                        },
+                        color: ['#0800FD', '#FEA72B'],//蓝色，黄色
+                        series: [
+                            {
+                                type: 'pie',
+                                radius: ['50%', '40%'],
+                                label: {
+                                    formatter: '{span|{c}}\n{a|{b}}',
+                                    rich: {
+                                        span: {
+                                            fontSize: 19,
+                                            lineHeight: 23
+                                        },
+                                        a: {
+                                            color: "#fff",
+                                            fontSize: 15
+                                        }
+                                    }
+                                },
+                                labelLine: {    //图形外文字线
+                                    show: false
+
+                                },
+
+                                data: [
+                                    { value: 335, name: '总离开人数' },//对应蓝色
+                                    { value: 310, name: '总进入人数' }//对应黄色
+
+                                ]
+                            }
+                        ]
+
+                    });
+                }
+            }
+        }
+        const cpn3 = {
+            template: "#cpn3",
+            props: {
+                color: String
+            }
+        }
+        const cpn4 = {
+            template: "#cpn4"
+        }
+        const cpn5 = {
+            template: "#cpn5",
+            props: {
+                yData: Array,
+                seriesData: Array,
+                colorList: Array
+            },
+            mounted() {
+                this.initChart()
+            },
+            methods: {
+                initChart() {
+                    let myChart = echarts.init(document.getElementById("eChart2"));
+                    let that = this;
+                    myChart.setOption({
+                        title: [{
+                            text: '展馆展项实时功率',
+                            textStyle: {
+                                color: "#fff",
+                                fontWeight: 500,
+                                fontSize: 24
+                            },
+                        }, {
+                            text: '',
+                            subtext: 'xxxxW',
+                            right: 0,
+                            subtextStyle: {
+                                color: "#fff",
+                                fontSize: 22
+                            }
+                        }
+                        ],
+                        grid: {
+                            left: '3%',
+                            right: '5%',
+                            bottom: '15%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'value',
+                            name: "大功率展项排行TOP10",
+                            nameLocation: "middle",
+                            nameTextStyle: {
+                                align: "center",
+                                verticalAlign: "top",
+                                lineHeight: 28,
+                                color: "#fff",
+                                fontSize: 22,
+                                padding: [35, 0, 0, 0]
+                            },
+                            boundaryGap: [0, 0.01],
+                            axisLabel: {
+                                color: "#FFFFFF",
+                                interval: 0
+                            },
+                            //坐标轴 最下面的
+                            axisLine: {
+                                show: false
+                            },
+                            // 分割线
+                            splitLine: {
+                                lineStyle: {
+                                    color: "#966CF7"
+                                }
+                            }
+
+                        },
+                        yAxis: {
+                            type: 'category',
+                            data: that.yData.reverse(),
+                            // y轴的字体颜色
+                            axisLabel: {
+                                color: "rgba(255,255,255,0.6)"
+                            },
+                            // y轴的颜色
+                            axisLine: {
+                                lineStyle: {
+                                    color: '#966CF7'
+                                }
+                            },
+                            // 坐标轴刻度小横线
+                            axisTick: {
+                                show: false
+                            }
+                        },
+                        series: [
+                            {
+                                name: '实时功率',
+                                type: 'bar',
+                                data: that.seriesData,
+                                itemStyle: {
+                                    normal: {
+                                        barBorderRadius: [28, 28, 28, 28],
+                                        //这里是重点
+                                        color: function (params) {
+                                            //注意，如果颜色太少的话，后面颜色不会自动循环，最好多定义几个颜色
+                                            var colorList = that.colorList.reverse();
+                                            return colorList[params.dataIndex]
+                                        }
+                                    },
+                                },
+                                barWidth: 10,  // 柱形的宽度
+                                barCategoryGap: '20%',
+                            }
+                        ]
+                    })
+                }
+            }
+        }
+        const cpn6 = {
+            template: "#cpn6",
+            props: {
+                showInfo: {
+                    type: Array,
+                    default() {
+                        return []
+                    }
+                },
+                showInfo6: Array
+            },
+            mounted() {
+                this.initChart()
+            },
+            methods: {
+                initChart() {
+                    let myChart = echarts.init(document.getElementById("eChart3"));
+                    // console.log(this.showInfo[1].num);
+                    // console.log(this.showInfo6)
+                    let option = {
+                        // title: {
+                        //     text: "展项完好率",
+                        //     textStyle: {
+                        //         color: "#fff",
+                        //         fontWeight: 500,
+                        //         fontSize: 24
+                        //     },
+                        //     top:50,
+                        // },
+                        title:[{
+                            text: "展项完好率",
+                            textStyle: {
+                                color: "#fff",
+                                fontWeight: 500,
+                                fontSize: 24
+                            },
+                            top:50,
+                        },{
+                            text:this.showInfo[0].id,
+                            textStyle:{
+                                color:this.showInfo[0].color[0],
+                                fontSize:12
+                            },
+                            top:205,
+                            left:85
+                        },{
+                            text:this.showInfo[1].id,
+                            textStyle:{
+                                color:this.showInfo[1].color[0],
+                                fontSize:12
+                            },
+                            top:205,
+                            left:280
+                        },{
+                            text:this.showInfo[2].id,
+                            textStyle:{
+                                color:this.showInfo[2].color[0],
+                                fontSize:12
+                            },
+                            top:205,
+                            left:473
+                        },{
+                            text:this.showInfo[3].id,
+                            textStyle:{
+                                color:this.showInfo[3].color[0],
+                                fontSize:12
+                            },
+                            top:345,
+                            left:85
+                        },{
+                            text:this.showInfo[4].id,
+                            textStyle:{
+                                color:this.showInfo[4].color[0],
+                                fontSize:12
+                            },
+                            top:345,
+                            left:280
+                        }
+                        ],
+                        series: []
+                    };
+                    var center = [["20%","40%"],["55%","40%"],["90%","40%"],["20%","80%"],["55%","80%"]];
+                    var obj;
+                    var obj2;
+                    for (let index in this.showInfo6) {
+                        // console.log(this.showInfo6);
+                        obj = {
+                            name: this.showInfo[index].id,
+                            type: 'pie',
+                            radius: [50, 40],
+                            itemStyle: {
+                                normal: {
+                                    color: this.showInfo[index].color[0],
+                                    label: {
+                                        show: false,
+                                    },
+                                    labelLine: {
+                                        show: false
+                                    },
+                                }
+                            },
+                            hoverAnimation: true,
+                            center:center[index],
+                            data: [{
+                                value: this.showInfo6[index][0].value,
+                                label: {
+                                    normal: {
+                                        formatter:this.showInfo[index].num + '%',
+                                        position: 'center',
+                                        show: true,
+                                        textStyle: {
+                                            fontSize: '20',
+                                            color: "#fff"
+                                        }
+                                    }
+                                },
+                            }, {
+                                value:this.showInfo6[index][1].value,
+                                name: 'invisible',
+                                itemStyle: {
+                                    normal: {
+                                        color: this.showInfo[index].color[1]
+                                    },
+                                    emphasis: {
+                                        color: this.showInfo[index].color[1]
+                                    }
+                                }
+                            }]
+                        };
+                        option.series.push(obj)
+                        // console.log(option.series);
+                    };
+                    myChart.setOption(option)
+
+                }
+            }
+        }
+        const cpn7 = {
+            template: "#cpn7",
+            props: {
+                showInfo2: Object
+            },
+            components: {
+                cpn3
+            }
+        }
+        const cpn8 = {
+            template: "#cpn8",
+            props: {
+                showInfo3: Object
+            },
+            components: {
+                cpn3
+            }
+        }
+        const cpn9 = {
+            template: "#cpn9",
+            props: {
+                showInfo4: Object
+            },
+            mounted() {
+                this.initChart()
+            },
+            methods: {
+                initChart() {
+                    let myChart = echarts.init(document.getElementById("eChart4"));
+                    let that = this;
+                    myChart.setOption({
+                        title: {
+                            text: '各展厅进出客流统计',
+                            textStyle: {
+                                color: "#fff",
+                                fontWeight: 500,
+                                fontSize: 24
+                            },
+                        },
+                        legend: {
+                            right: 10,
+                            top: 30,
+                            textStyle: {
+                                color: "#fff"
+                            },
+                            itemGap: 35
+                        },
+                        grid: {
+                            top: '15%',
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'value',
+                            boundaryGap: [0, 0.01],
+                            // 分割线
+                            splitLine: {
+                                lineStyle: {
+                                    color: "#6076AD"
+                                }
+                            },
+                            axisLabel: {
+                                color: "#FFFFFF"
+                            },
+                            //坐标轴 最下面的
+                            axisLine: {
+                                show: false
+                            }
+                        },
+                        yAxis: {
+                            type: 'category',
+                            data: that.showInfo4.showroomName,
+                            // y轴的字体颜色
+                            axisLabel: {
+                                color: "#FFFFFF"
+                            },
+                            // y轴的颜色
+                            axisLine: {
+                                lineStyle: {
+                                    color: '#6076AD'
+                                }
+                            },
+                            // 坐标轴刻度小横线
+                            axisTick: {
+                                show: false
+                            }
+                        },
+                        series: [
+                            {
+                                name: '进入人数',
+                                type: 'bar',
+                                data: that.showInfo4.countPerson,
+                                itemStyle: {
+                                    color: "#67E0E3"
+                                },
+                                barWidth: 10,  // 柱形的宽度
+                                barCategoryGap: '20%',
+                            },
+                            {
+                                name: '离开人数',
+                                type: 'bar',
+                                data: that.showInfo4.leavePerson,
+                                itemStyle: {
+                                    color: "#EB6F49"
+                                },
+                                barWidth: 10,  // 柱形的宽度
+                                barCategoryGap: '20%',
+                            }
+                        ]
+                    })
+
+                }
+            }
+        }
+        const cpn10 = {
+            template: "#cpn10",
+            props: {
+                showInfo5: Array,
+            },
+            components: {
+                cpn3
+            }
+        }
+        const screen = new Vue({
+            el: "#screen",
+            data: {
+                temperature: 25,
+                PM: 124,
+                condition: "轻度污染",
+                timer: null,
+                nowDate: '',
+                nowTime: '',
+                longTime: "01:05:36",
+                cp3Info: "展厅A",
+                color1: "#ffa500",
+                color2: "#02e9d7",
+                yData: ['展项1', '展项2', '展项3', '展项4', '展项5', '展项6', '展项7', '展项8', '展项9', '展项10'],
+                seriesData: [18203, 23489, 29034, 104970, 131744, 630230, 630230, 630230, 630230, 630230],
+                colorList: ['#D53737', '#6F61AE', '#F3A12B', '#19B0FF', '#19B0FF', '#19B0FF', '#19B0FF', '#19B0FF', '#19B0FF', '#19B0FF'],
+                showInfo: [
+                    { id: "展厅A", color: ['#6FBA2A', '#000033'], num: 72 },
+                    { id: "展厅B", color: ['#FEA72B', '#000033'], num: 72 },
+                    { id: "展厅C", color: ['#02E9D7', '#000033'], num: 72 },
+                    { id: "展厅D", color: ['#0881FD', '#000033'], num: 72 },
+                    { id: "展厅E", color: ['#E3391E', '#000033'], num: 72 },
+                ],
+                showInfo2: {
+                    title: "智能设备使用情况",
+                    color: ['#02E9D7', '#FFA423', '#0881FD', '#E3391E'],
+                    install1: 7,
+                    install2: 3,
+                    using: 2,
+                    run: "正常"
+                },
+                showInfo3: {
+                    title: "讲解员服务设备情况",
+                    color: ['#02E9D7', '#FFA423', '#0881FD', '#E3391E'],
+                    using: 10,
+                    unUsing: 3,
+                    total: 2,
+                    broken: 1
+                },
+                showInfo4: {
+                    showroomName: ['展厅名称A', '展厅名称b', '展厅名称c', '展厅名称d', '展厅名称e'],
+                    countPerson: [18203, 23489, 29034, 10497, 2222],
+                    leavePerson: [19325, 23438, 31000, 68180, 3333]
+                },
+                showInfo5: [
+                    { item: "人气展项1", color: "#E3391E" },
+                    { item: "人气展项2", color: "#E3561E" },
+                    { item: "人气展项3", color: "#E3891E" },
+                    { item: "人气展项4", color: "#11CFFF" },
+                    { item: "人气展项5", color: "#11CFFF" },
+                    { item: "人气展项6", color: "#11CFFF" },
+                    { item: "人气展项7", color: "#11CFFF" },
+                    { item: "人气展项8", color: "#11CFFF" },
+                    { item: "人气展项9", color: "#11CFFF" },
+                    { item: "人气展项10", color: "#11CFFF" }
+                ],
+                showInfo6: [
+                    [{ value: 335, name: '632总进入人数' }, { value: 30, name: '365总离开人数' }],
+                    [{ value: 335, name: '632总进入人数' }, { value: 30, name: '365总离开人数' }],
+                    [{ value: 335, name: '632总进入人数' }, { value: 30, name: '365总离开人数' }],
+                    [{ value: 335, name: '632总进入人数' }, { value: 30, name: '365总离开人数' }],
+                    [{ value: 335, name: '632总进入人数' }, { value: 30, name: '365总离开人数' }],
+                ]
+
+            },
+            components: {
+                cpn1,
+                cpn2,
+                cpn3,
+                cpn4,
+                cpn5,
+                cpn6,
+                cpn7,
+                cpn8,
+                cpn9,
+                cpn10
+            },
+            computed: {
+
+            },
+            methods: {
+                setNowTimes() {
+                    let myDate = new Date();
+                    // console.log(myDate)
+                    let yy = String(myDate.getFullYear());
+                    let mm = myDate.getMonth() + 1;
+                    let dd = String(myDate.getDate() < 10 ? '0' + myDate.getDate() : myDate.getDate());
+                    let hou = String(myDate.getHours() < 10 ? '0' + myDate.getHours() : myDate.getHours());
+                    let min = String(myDate.getMinutes() < 10 ? '0' + myDate.getMinutes() : myDate.getMinutes());
+                    let sec = String(myDate.getSeconds() < 10 ? '0' + myDate.getSeconds() : myDate.getSeconds());
+                    this.nowDate = yy + '-' + mm + '-' + dd;
+                    this.nowTime = hou + ':' + min + ':' + sec
+                }
+            },
+            mounted() {
+                this.timer = setInterval(() => {
+                    this.setNowTimes()
+                }, 1000)
+            }
+        })
+    </script>
+</body>
+
+</html>

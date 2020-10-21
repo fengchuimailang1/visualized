@@ -1,0 +1,23 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "3092228",
+      "name": "树叶e",
+      "font_class": "shuyee",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "9277844",
+      "name": "多云",
+      "font_class": "duoyun",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    }
+  ]
+}

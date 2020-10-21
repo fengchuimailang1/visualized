@@ -1,0 +1,256 @@
+html,body{
+    width:100%;
+    height:100%;
+    background-color: rgb(0,5,19);
+    color:white;
+    position: relative;
+}
+img{
+    vertical-align: bottom;
+}
+#screen{
+    width:100%;
+    height:100%;
+}
+.div-head{
+    display: flex;
+}
+.logo{
+    flex:1;
+    margin:12px 0 0 20px;
+}
+.head-img{
+    flex:1.5;
+}
+.head-img img{
+    width:100%;
+}
+.head-right{
+    flex:1;
+    display: flex;
+    margin-top:40px;
+}
+.weather{
+    flex:1;
+    height:31px;
+    display: flex;
+    border-right: 1px solid white;
+}
+.weather img{ 
+    width:32px;
+    height:28px;
+}
+.weather span{
+    font-size: 20px;
+    margin-left:18px;
+    padding-right: 18px;
+}
+.pollution-index{
+    flex:1;
+    display: flex;
+}
+.pollution-index .icon{
+    flex:1;
+    font-size: 12px;
+    margin-left:10px;
+}
+.pollution-index .info{
+    flex:1;
+    height:30px;
+    font-size: 12px;
+    text-align: center;
+    border-right:1px solid white;
+}
+.info .index{
+    font-size: 16px;
+}
+.info .condition{
+    width:50px;
+    margin-right:15px;
+}
+.time{
+    flex:1;
+    margin-left:15px;
+    font-size: 12px;
+    display:flex;
+    flex-direction: column;
+}
+.time .nowTime{
+    font-size: 20px;
+}
+.time .date{
+    float: right;
+}
+/* cpn2 */
+.eCharts1{
+    width:350px;
+    height:240px;
+    position: absolute;
+    left:20px;
+    top:120px;
+}
+/* cpn3 */
+
+.cpn3-1{
+    position: absolute;
+    top:185px;
+    left:420px;
+}
+.cpn3-2{
+    position: absolute;
+    top:245px;
+    left:420px;
+}
+.cpn3-ball{
+    display: flex;
+}
+.spot{
+    width:12px;
+    height:12px;
+    border-radius: 50%;
+}
+.cpn3-info{
+    margin:-4px 0  0 10px;
+}
+.cpn3-info div{
+    margin-bottom: 10px;
+}
+/* cpn4 */
+.cpn4{
+    position: absolute;
+    top:135px;
+    left: 630px;
+}
+/* .cpn4-img{
+    width:45%;
+    height:364px;
+} */
+.cpn4-img img{
+    width:65%;
+    height:100%;
+}
+/* cpn5 */
+.cpn5{
+    position:absolute;
+    top:100px;
+    left:1040px;
+}
+.eChart2{
+    width: 300px;
+    height:486px;
+}
+/* cpn6 */
+.cpn6{
+    position: absolute;
+    top:300px;
+    left:20px;
+}
+.eChart3{
+    width:544px;
+    height:360px;
+}
+/* cpn7 */
+.cpn7{
+    position: absolute;
+    top:765px;
+    left:20px;
+}
+.title{
+    font-size: 24px;
+}
+.content{
+    display: flex;
+    margin-top: 35px;
+}
+.one-f{
+    display: flex;
+    margin-right: 90px;
+    font-size: 16px;
+}
+.ball{
+    margin:0 10px;
+}
+.text{
+    margin-top:-3px;
+}
+.two-f{
+    display: flex;
+}
+.text span{
+    margin:0 10px;
+}
+/* cpn8 */
+.cpn8{
+    position: absolute;
+    top:935px;
+    left:20px;
+}
+/* cpn9 */
+.eChart4{
+    width:310px;
+    height:430px;
+    position: absolute;
+    top:665px;
+    left:570px;
+}
+/* cpn10 */
+.cpn10{
+    position: absolute;
+    right:20px;
+    top:615px;
+}
+.cpn10-title{
+    font-size: 24px;
+    position: relative;
+    left:-90px;
+}
+.cpn10-subtext{
+    margin-top: 60px;
+    font-size: 30px;
+    font-weight: 700;
+    position: relative;
+    left:-90px;
+}
+.cpn10-subtext span{
+    font-size: 16px;
+    margin-left:50px;
+    padding:10px 20px;
+    background-color: #871a2d;
+    border-radius: 50px;
+}
+.cpn10-center{
+    display: flex;
+    position:relative;
+    top:55px;
+    left:-90px;
+}
+.cpn10-text{
+    color:#b8c4f0;
+    margin:-3px 20px;
+}
+.cpn10-img{
+    margin-top: -3px;
+}
+.cpn10-img img{
+    width:20px;
+    height:20px;
+}
+.cpn10-bottom{
+    width:255px;
+    font-size: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    top:100px;
+    left:-30px;
+}
+.cpn10-array{
+    display: flex;
+    text-align: center;
+    margin:0 18px 30px 0;
+}
+.cpn10-ball .spot{
+    width:20px;
+    height:20px;
+    margin-right: 10px;
+}
